@@ -14,7 +14,7 @@
       <li class="dropdown">
         <a href="#">Science ▼</a>
         <ul class="dropdown-content">
-          <li><a href="#" onclick=MBFR.html>Fusion1</a></li>
+          <li><a href="#" onclick="loadIframe('MBFR.html')">Fusion1</a></li>
           <li><a href="#" onclick="loadIframe('http://vinayjhaa.wikidot.com/fusion:extras')">Fusion2</a></li>
           <li><a href="#" onclick="loadIframe('http://vedicastrology.wikidot.com/sss01')">Cosmology1</a></li>
           <li><a href="#" onclick="loadIframe('http://vedicastrology.wikidot.com/sss02')">Cosmology2</a></li>
@@ -28,4 +28,10 @@
   <iframe id="wikiframe" src="https://yourwikidot.wikidot.com/start" width="100%" height="800px" style="border:none;"></iframe>
 
 </body>
+ <script>
+function loadIframe(url) {
+  document.getElementById("wikiframe").src = url;
+}
+</script>
+
 </html>
