@@ -48,3 +48,16 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
+/* ===== Tabbed top nav (dropdown), no-JS ===== */
+:root{--tab-blue:#eaf1ff;--tab-blue-border:#9db7ff;--tab-blue-text:#0a3a8c;--tab-blue-hover:#d7e5ff;--line:#d8dee9}
+.tabs-nav{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.tabs-nav .container{max-width:1100px;margin:0 auto;padding:6px 10px;display:flex;align-items:center;gap:14px}
+.tabs-nav .tabs{list-style:none;margin:0;padding:0;display:flex;gap:6px}
+.tabs-nav .tabs>li{position:relative}
+.tabs-nav .tabs>li>a{display:inline-block;padding:6px 10px;border:1px solid var(--tab-blue-border);background:var(--tab-blue);color:var(--tab-blue-text);text-decoration:none;border-radius:4px;font-weight:600;font-size:14px}
+.tabs-nav .tabs>li>a:hover{background:var(--tab-blue-hover)}
+.tabs-nav .tabs>li.has-sub:hover>ul.sub{display:block}
+.tabs-nav .sub{display:none;position:absolute;left:0;top:calc(100% + 6px);min-width:280px;background:#fff;border:1px solid var(--line);border-radius:4px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:6px 0}
+.tabs-nav .sub li{list-style:none}
+.tabs-nav .sub a{display:block;padding:6px 10px;text-decoration:none;color:var(--tab-blue-text);font-size:14px;white-space:nowrap}
+.tabs-nav .sub a:hover{background:var(--tab-blue);text-decoration:underline}
