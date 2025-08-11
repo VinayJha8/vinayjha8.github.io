@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MBFR — Micro‑Burst Fusion Reactor (v6)</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root {
+    --ink: #0f172a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --red: #b91c1c;
+    --bg-head: #0b1020;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.58; color: var(--ink); margin:0; padding:0; }
+  header { background: var(--bg-head); color: #fff; padding: 28px 16px; }
+  header h1 { margin:0 0 6px 0; font-size: 28px; color: #fff; }
+  main { max-width: 980px; margin: 22px auto; padding: 0 16px 80px; }
+  h1, h2, h3 { color: var(--red); }
+  h2 { margin-top: 2.0em; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  h3 { margin-top: 1.2em; }
+  p { margin: 0.6em 0; }
+  ul, ol { margin: 0.6em 0 0.6em 1.3em; }
+  a { color:#0d6efd; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .top-links { background:#fff7ed; border:1px solid #fdba74; padding:10px 12px; border-radius:8px; margin:12px 0 18px; font-size:14px; }
+  .top-links b { color:#7c2d12; }
+  .fig-ref a { margin-right:10px; white-space:nowrap; }
+  .toc { border:1px solid var(--line); border-radius:8px; padding:10px 12px; background:#f8fafc; }
+  .toc .hdr { display:flex; justify-content:space-between; align-items:center; }
+  .toc .title { font-weight:700; }
+  .toc a.fold { font-size:12px; color:#64748b; text-decoration:none; }
+  .toc ol { margin:8px 0 0 16px; }
+  .toc li { margin:2px 0; }
+  .figure { margin: 14px 0 24px; font-size: 13px; color: #334155; }
+  .figure img { max-width:100%; height:auto; border:1px solid var(--line); border-radius:6px; }
+  .caption { margin-top: 6px; text-align:center; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0 16px; }
+  th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  footer { border-top:1px solid var(--line); color: var(--muted); font-size:13px; padding:18px 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>MBFR</h1>
+</header>
+<main>
+
+<div class="toc" id="toc">
+  <div class="hdr">
+    <div class="title">Table of Contents</div>
+    <a href="#" class="fold" id="tocFold">Fold</a>
+  </div>
+  <ol>
+    <li><a href="#part1">PART 1: Theoretical foundation &amp; system concept</a></li>
+    <li><a href="#part2">PART 2: Reference design points</a>
+      <ol>
+        <li><a href="#part2a">A) Subsystem demonstrator (non‑economic prototype)</a></li>
+        <li><a href="#part2b">B) Plant‑scale chamber (economic module)</a></li>
+      </ol>
+    </li>
+    <li><a href="#part3">PART 3: Fuel, targets, and injector (explicit)</a></li>
+    <li><a href="#part4">PART 4: Driver and final optics (explicit spec)</a></li>
+    <li><a href="#part4a">PART 4A: Maser preheat + laser panel ignition (detailed)</a></li>
+    <li><a href="#part5">PART 5: Fusion chamber, alpha management, blanket &amp; shielding</a></li>
+    <li><a href="#part6">PART 6: Power conversion and balance of plant</a></li>
+    <li><a href="#part7">PART 7: Controls, safety, and tritium handling</a></li>
+    <li><a href="#part8">PART 8: Scaling &amp; preliminary economics</a></li>
+    <li><a href="#part9">PART 9: Worked examples</a></li>
+    <li><a href="#part10">PART 10: Program plan</a></li>
+    <li><a href="#part11">PART 11: FAQ</a></li>
+    <li><a href="#part12">PART 12: 500 MWe reference plant — worked case (Excel v2)</a></li>
+    <li><a href="#figures">Figures</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</div>
+
+<div class="top-links" style="margin-top:12px">
+  <div><b>Downloads:</b>
+    <a href="MBFR_Full_Article_with_Diagrams_v4.docx">DOCX (full article)</a> ·
+    <a href="MBFR_chamber_cross_section.dxf">DXF (chamber cross‑section)</a>
+  </div>
+  <div style="margin-top:6px;"><b>Figures (jump to):</b>
+    <span class="fig-ref">
+      <a href="#fig-block">Fig A — System block</a>
+      <a href="#fig-cross">Fig B — Chamber cross‑section</a>
+      <a href="#fig-timing">Fig C — Shot timing</a>
+      <a href="#fig-layout">Fig D — Multi‑chamber layout</a>
+    </span>
+  </div>
+</div>
+<h1>Micro‑Burst Fusion Reactor (MBFR)</h1>
+<h2>Scalable D–T inertial fusion for low‑cost electricity</h2>
+<br/>
+<hr/>
+<br/>
+<h2>Plain‑language overview (for non‑specialists)</h2>
+<ul>
+<li>**What MBFR is:** a power plant that makes heat by firing many **tiny fusion bursts each second**. There is **no big, continuous plasma** to confine. The heat then runs a standard turbine to make electricity.</li>
+<li>**How one burst works:** a **small frozen fuel pellet** (deuterium + tritium) flies through the chamber. A **millimetre‑wave maser** gives it a gentle, even pre‑heat so the main **ultraviolet lasers** couple better. The lasers fire for a few **nanoseconds**, the pellet fuses, and the energy appears as **helium nuclei (alphas)** and **neutrons**. Nearby structures and a **liquid blanket** absorb this energy as heat.</li>
+<li>**Why bigger plants are cheaper:** the fuel‑pellet cost per MWh barely changes with size, but **big plants spread fixed costs** (drivers, shielding, tritium systems, turbine island, staff) over far more output. That’s why we aim for **400–600 megawatts electric (MWe)**.</li>
+<li>**Safety in plain terms:** thick shielding cuts radiation to **background‑like levels at the site fence**; tritium stays in sealed loops with **detritiation** and **permeation barriers**; double‑wall heat‑exchangers have a monitored **helium sweep** to catch leaks. This is **not “no radiation”**—it is **radiation contained on‑site**.</li>
+<li>**Status:** the numbers here are **reference design points** to guide engineering and costing. The path is: bench tests → single‑chamber demonstrator → multi‑chamber commercial plant.</li>
+</ul>
+<br/>
+<h2>Acronyms & units (quick glossary)</h2>
+<ul>
+<li>**D / T:** deuterium / tritium (forms of hydrogen; **T is radioactive**).</li>
+<li>**α (alpha):** helium‑4 nucleus made by fusion; **n:** neutron.</li>
+<li>**kJ / MJ:** kilo / mega‑joule (1 MJ = 1,000,000 J). **MeV:** million electron‑volts (a particle‑energy unit).</li>
+<li>**Hz / ns / µs / ps:** per‑second / nanosecond / microsecond / picosecond.</li>
+<li>**MW(th) / MWe:** thermal / electric megawatts.</li>
+<li>**Gain (G):** fusion energy out divided by laser optical energy in.</li>
+<li>**η_laser / η_th→e:** laser wall‑plug efficiency / thermal‑to‑electric efficiency.</li>
+<li>**Rep‑rate:** shots per second per chamber.</li>
+<li>**FLiBe:** lithium‑fluoride–beryllium‑fluoride molten salt; **PbLi:** lead–lithium alloy.</li>
+<li>**DPSSL:** diode‑pumped solid‑state laser (frequency‑tripled to UV for direct drive).</li>
+<li>**Maser / gyrotron:** high‑power millimetre‑wave source used here for pre‑heating the pellet surface.</li>
+<li>**sCO₂:** **supercritical carbon dioxide** power cycle (a high‑efficiency turbine system).</li>
+<li>**LCOE:** levelised cost of electricity ($/MWh over the plant life). **O&M:** operations & maintenance. **WACC:** weighted average cost of capital. **CF:** capacity factor (percent of time at full power, on average). **NOAK:** nth‑of‑a‑kind plant (after the first‑of‑a‑kind).</li>
+<li>**ALARA:** “as low as reasonably achievable” (safety principle for radiation exposure).</li>
+<li>**TVL:** tenth‑value layer—thickness that cuts radiation by 10×.</li>
+<li>**MCNP / Serpent:** standard neutron‑transport simulation codes.</li>
+<li>**FPGA / PTP / PLC / RTOS:** field‑programmable gate array / Precision Time Protocol / programmable logic controller / real‑time operating system.</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part1">PART 1: Theoretical foundation & system concept</h2>
+<br/>
+<ol>
+<li>**Principle**</li>
+<ul>
+<li>No sustained plasma or magnetic confinement. Energy is produced by **repeated micro‑bursts** of D–T fusion:</li>
+<p>     \\(\\text{D} + \\text{T} \\to \\alpha~(3.5\\,\\text{MeV}) + n~(14.1\\,\\text{MeV}), ~ Q = 17.6\\,\\text{MeV}\\).</p>
+<li>Bursts occur at **rep‑rate** (5–20 Hz per chamber nominal; plant‑level aggregate via multiple chambers), yielding quasi‑steady thermal output.</li>
+<li>Each burst is followed immediately by **thermal absorption** in engineered structures; heat is buffered, then converted to electricity.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>**Core design objectives**</li>
+<ul>
+<li>**Public safety:** near‑zero off‑site radiation dose with conservative shielding; **low‑activation** structural materials.</li>
+<li>**No plasma confinement systems:** only beam/optics for ignition and local magnetic optics for **charged‑particle energy management** (alpha steering). No global magnetic confinement.</li>
+<li>**Commercial parts first:** drivers, pumps, heat‑exchangers, control hardware sourced from existing vendors where possible.</li>
+<li>**Modular & scalable:** replicate identical chambers to scale plant output.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>**Quantities & terms (for reference)**</li>
+<ul>
+<li>**Fusion gain (G):** fusion energy out / laser optical energy in.</li>
+<li>**\\(\\eta_\\text{{laser}}\\):** laser wall‑plug efficiency (target 15–20% NOAK).</li>
+<li>**\\(\\eta_{th\\to e}\\):** thermal‑to‑electric efficiency (30–40% depending on cycle).</li>
+<li>**Net‑power condition (rule‑of‑thumb):** \\(G > 1/(\\eta_\\text{{laser}}\\,\\eta_{th\\to e})\\). With 15%×30% ⇒ **G > 22**.</li>
+</ol>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part2">PART 2: Reference design points (keep numbers consistent)</h2>
+<br/>
+<p>We distinguish <strong>(A) a subsystem demonstrator</strong> (tens of kWe) from <strong>(B) a plant‑scale module</strong> (~50 MWe/chamber). Mixing these previously caused contradictions.</p>
+<br/>
+<h3 id="part2a">A) Subsystem demonstrator (non‑economic prototype)</h3>
+<ul>
+<li>Purpose: validate injector, alignment, final optics survival, alpha‑capture geometry, blanket heat paths, controls.</li>
+<li>Notional operating point:</li>
+<li>**Per‑shot fusion yield:** 10 kJ</li>
+<li>**Rep‑rate:** 20 Hz</li>
+<li>**Thermal power:** 200 kW(th) ⇒ **Electric ≈ 60 kWe** (at 30%).</li>
+<li>**Reactions/shot:** \\(10^4\\,\\text{J} / (17.6\\,\\text{MeV} \\times 1.602\\times10^{-19}\\,\\text{J/eV}) \\approx 3.55\\times10^{15}\\).</li>
+<li>Comment: Demonstrator proves physics & engineering at modest energies. LCOE is not a goal at this scale.</li>
+</ul>
+<br/>
+<h3 id="part2b">B) Plant‑scale chamber (economic module)</h3>
+<ul>
+<li>Purpose: form the building block of a commercial station by clustering identical chambers.</li>
+<li>Notional operating point:</li>
+<li>**Per‑shot fusion yield:** 16–33 MJ</li>
+<li>**Rep‑rate:** 10–5 Hz</li>
+<li>**Thermal power:** 160–330 MW(th) ⇒ **Net ≈ 50 MWe/chamber** (30–35% conversion after parasitics).</li>
+<li>Plant composition: **8–12 chambers ⇒ 400–600 MWe net**. This range balances capex per kW, optics survivability, availability, and target‑factory economics.</li>
+</ul>
+<br/>
+<p>> <strong>Why no 10 kWe product claims:</strong> pellet/target handling costs dominate at tiny scales. MBFR is engineered for <strong>utility‑class output</strong>, not countertop units.</p>
+<br/>
+<hr/>
+<br/>
+<h2 id="part3">PART 3: Fuel, targets, and injector (explicit)</h2>
+<br/>
+<ol>
+<li>Fuel & targets</li>
+<ul>
+<li>Fuel: D–T in closed loops; no routine tritium releases; detritiation and permeation barriers standard.</li>
+<li>Target diameter: 0.5–1.0 mm; direct-drive cryo pellets (no precision hohlraums). Keep one geometry in all examples.</li>
+<li>Per-shot fuel bookkeeping (example): for E_fusion = 20 MJ, reactions per shot ≈ E / (17.6 MeV) ≈ 7.1e18. Mass burned ≈ ~0.059 g of D+T (5 u per reaction). Burn fraction and inventory determine actual pellet mass; unburned fuel is recovered into process loops — no disposal of unburned D/T.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>Injector</li>
+<ul>
+<li>Placement jitter: target < 100 micrometers at focus; microsecond timing windows; reject-on-fault with automatic re-arm.</li>
+<li>Throughput: 5–20 Hz per chamber; hot-swap injector cassettes for availability.</li>
+</ol>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part4">PART 4: Driver and final optics (explicit spec)</h2>
+<br/>
+<ul>
+<li>Driver class: diode-pumped solid-state laser (DPSSL), frequency-tripled to ~351 nm for direct-drive absorption; programmable pulse shape (ns-scale foot plus peak).</li>
+<li>Per-shot optical energy (El): set by required gain G: El = E_fusion / G. Plant module example: E_fusion = 20 MJ, G = 60 -> El ≈ 0.333 MJ (optical).</li>
+<li>Average optical power per chamber: Pl = El × f_rep. Example above at 10 Hz -> 3.33 MW(optical).</li>
+<li>Wall-plug electrical power: Pe = Pl / eta_laser. With eta_laser = 0.15 -> ~22.2 MWe parasitic per chamber for the example. (This drives net-power budgeting.)</li>
+<li>Peak power: P_peak = El / tau. With tau = 5 ns and El = 0.333 MJ -> ~66 TW. Optical train and final optics must be designed around TW-class pulses at rep-rate.</li>
+<li>Final optics survivability: replaceable or flowing gas curtains or liquid films at windows; debris-resistant coatings; automated post-shot re-alignment; line-replaceable optics packs.</li>
+<li>Scaling options: lower rep-rate (5 Hz) at higher E_fusion (25–33 MJ) or higher rep-rate (10 Hz) at E_fusion ≈ 16–20 MJ to keep Pl in the few-MW(optical) regime.</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part4a">PART 4A: Maser preheat + laser panel ignition (detailed)</h2>
+<br/>
+<p><strong>Purpose.</strong> Reduce required laser optical energy and improve shot-to-shot stability by seeding a controlled, symmetric ablation layer before the nanosecond ignition pulse.</p>
+<br/>
+<h3>Architecture</h3>
+<ul>
+<li>**One maser line (millimeter‑wave gyrotron)** aimed collinearly with the pellet flight path, followed by</li>
+<li>**Panels of UV laser beamlets** (192–384 total) arranged quasi‑icosahedrally around the chamber for symmetric direct drive.</li>
+</ul>
+<br/>
+<h3>Maser (mm‑wave) preheat</h3>
+<ul>
+<li>**Source type:** high‑power gyrotron maser (170–240 GHz). Off‑the‑shelf class is **~1 MW CW**; we use **pulsed 20–200 µs**.</li>
+<li>**Beam delivery:** Vlasov launcher → quasi‑optical mirrors → CVD‑diamond window → focusing mirror to **w0 ≈ 0.5–1.0 mm** at pellet.</li>
+<li>**Why mm‑wave works here:** cryo D‑T is nearly transparent; we intentionally add a **lossy absorbing skin** on the pellet (see below) so the maser deposits energy in a **few‑µm layer**, producing a gentle, uniform **pre‑ablation plume** without bulk preheat.</li>
+<li>**Absorbing skin options (any one):**</li>
+<p>  1) <strong>Graphitic micro‑foil</strong> 1–3 µm (high mm‑wave loss tangent);</p>
+<p>  2) <strong>SiC‑doped polymer</strong> varnish ≤2 µm (burn‑off clean);</p>
+<p>  3) <strong>CNT‑doped aerogel</strong> over‑coat ≤5 µm (sintered network);</p>
+<p>  4) <strong>Thin metallic nano‑mesh</strong> (Al or Cu) ≤0.5 µm with perforations to avoid spall.</p>
+<li>**Pulse/energy budget (reference chamber, 20 MJ shot):**</li>
+<li>Maser pulse **1.0 MW × 50 µs ≈ 50 J** at target (η_delivery ≥ 0.7 with clean optics).</li>
+<li>This produces **pre‑ablation mass loss ~10–50 ng** and a **low‑Z plasma halo** of thickness **~50–200 µm** at **T_e ~ 0.5–2 eV**.</li>
+<li>Benefit: raises UV **absorptivity** and smooths laser imprint; empirically target **10–20% reduction** in required UV optical energy for the same areal‑density history.</li>
+<li>**Timing:** fire at **t = −30 to −3 µs** before UV foot. Exact value set by plume expansion speed; hold **laser‑on** only if pellet is inside the capture gate.</li>
+<li>**Pointing/jitter:** maser spot concentric with predicted UV centroid to **≤100 µm**; power stability **±2%** shot‑to‑shot; sync jitter **≤200 ns** vs UV foot.</li>
+<li>**Safety/ops:** interlocked beam‑dump, stray mm‑wave detectors, mirror/ window temperature and vacuum interlocks; automatic power derate on emission drift.</li>
+</ul>
+<br/>
+<h3>UV laser ignition (panels of beamlets)</h3>
+<ul>
+<li>**Wavelength:** **3ω DPSSL ≈ 351 nm** (frequency‑tripled Nd). Optional 4ω if optics allow.</li>
+<li>**Total optical per shot:** **E_l ≈ 0.333 MJ** (for 20 MJ fusion at **G=60**). With maser assist, design goal **E_l,goal ≈ 0.27–0.30 MJ** (to be proven).</li>
+<li>**Panelization:**</li>
+<li>**Panels:** **12** panels on an icosahedral pattern, each panel delivering **16–32 beamlets** ⇒ **192–384 beams** total.</li>
+<li>**Per‑beamlet energy (5 ns spike):**</li>
+<li>192 beams ⇒ **~1.7 kJ/beam**, **0.35 TW/beam**;</li>
+<li>256 beams ⇒ **~1.3 kJ/beam**, **0.26 TW/beam**;</li>
+<li>384 beams ⇒ **~0.87 kJ/beam**, **0.17 TW/beam**.</li>
+<li>**Final optics:** gas curtain / thin liquid film at each window; replaceable debris shields; large‑aperture fused silica with AR at 351 nm; line‑replaceable optics cassettes.</li>
+<li>**Pulse shape (typical):**</li>
+<li>**Foot:** 1–2 ns at **5–10%** of peak to launch a gentle shock;</li>
+<li>**Picket(s):** optional sub‑ns pickets for imprint control;</li>
+<li>**Spike:** 3–5 ns to peak ablation pressure; total UV duration **≤8 ns**.</li>
+<li>**Beam smoothing & symmetry:** randomized **Smoothing by Spectral Dispersion (SSD)** or equivalent; distributed phase plates; per‑beam **power balance ±3%**, **timing jitter ≤50 ps**, **pointing ≤25 µm** at target.</li>
+<li>**Alignment & metrology:** fast imaging gates on pellet; time‑of‑flight to lock focus; Hartmann wavefront sensors per panel; auto‑trim loop between shots.</li>
+</ul>
+<br/>
+<h3>Pellet engineering (to cooperate with maser)</h3>
+<ul>
+<li>**Capsule:** 0.5–1.0 mm D‑T ice on a low‑Z mandrel (or pure solid D‑T), over‑coated by **absorbing skin** per options above (total added areal density **≤ 0.02 mg/cm²**).</li>
+<li>**Design rule:** maser must **not** lift significant mass or raise bulk temperature—only create a controlled halo that **improves UV coupling** and **reduces laser imprint**.</li>
+<li>**QA:** in‑line optical thickness/roughness metrology; mm‑wave reflectometry on sample pellets; destructive tests to set allowable skin thickness variance.</li>
+</ul>
+<br/>
+<h3>Synchronization sequence (per shot)</h3>
+<ol>
+<li>**Pellet enters gate:** position/velocity measured → predictive aim point.</li>
+<li>**Maser ON:** 20–200 µs window at chosen power → form halo.</li>
+<li>**Laser foot:** −2…−1 ns; confirm diagnostics within bounds.</li>
+<li>**Laser spike:** 0…5 ns; collect diagnostics (x‑ray framing, streak camera, back‑lit imaging).</li>
+<li>**Post‑shot:** optics health check; debris assessment; algorithm trims for next shot.</li>
+</ol>
+<br/>
+<h3>Failure management</h3>
+<ul>
+<li>**Preheat overshoot:** plume density too high → UV back‑reflection; system vetoes spike and dumps the shot.</li>
+<li>**Under‑preheat:** insufficient halo → higher imprint; controller increments maser energy for subsequent shots within safe bounds.</li>
+<li>**Window stress:** temperature/deflection beyond limit → auto‑swap to spare cassette; reduce rep‑rate until cleared.</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part5">PART 5: Fusion chamber, alpha management, blanket & shielding</h2>
+<br/>
+<ol>
+<li>Fusion chamber</li>
+<ul>
+<li>Geometry: 1–2 m class vessel, moderate vacuum (~10^-3 atm). Multiple line-of-sight ports: pellet injector, laser entry, diagnostics.</li>
+<li>First wall: cassette tiles in low-activation steel (e.g., Eurofer-class) or SiC/SiC; inner B4C coating for thermal-neutron capture; liquid or replaceable sacrificial film/window at laser ports.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>Alpha-particle energy management</li>
+<ul>
+<li>Goal: intercept a large fraction of 3.5 MeV alpha energy within centimeters of birth to reduce instantaneous wall loading.</li>
+<li>Method: shaped, ~10 T local fields from compact coils produce helical trajectories into coiled conductive tubes that spread heat and feed thermal buffers. At 10 T, the alpha Larmor radius is ~2–3 cm at birth; hence capture structures must reside close to the burn volume. Any uncaptured alpha joins blanket heating.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>Neutron blanket and shield stack (explicit)</li>
+<ul>
+<li>Blanket modules (inner -> outer):</li>
+<li>Moderator: 30–40 cm borated polyethylene or FLiBe channels to slow 14.1 MeV neutrons and capture some thermalized flux.</li>
+<li>Absorber/capture: B4C panels (>= 5 cm equivalent) to capture thermal neutrons.</li>
+<li>Bulk shielding: Heavy (barite) concrete >= 2.0 m total thickness (assume effective TVL (tenth‑value layer) ~40 cm for fast-neutron/gamma mix -> about 5 TVLs ≈ 1e5 attenuation in this stage alone).</li>
+<li>Structural liner: Steel 5–10 cm for structure and residual gamma attenuation.</li>
+<li>Outcome target: >= 1e6 overall attenuation from first-wall to biological shield exterior, driving site-boundary dose ~ background for normal operation. Final thicknesses will be set by MCNP/Serpent transport using chamber geometry and source term from the chosen yield/rep-rate.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>Thermal buffer</li>
+<ul>
+<li>Coolants: molten salt (FLiBe/FLiNaK) or liquid metal (PbLi) in multi-loop design; surge tanks smooth per-shot heat into steady thermal input for the power cycle; double-wall heat exchangers with tritium permeation barriers.</li>
+</ol>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part6">PART 6: Power conversion and balance of plant (expanded)</h2>
+<br/>
+<h3>6.1 Thermal architecture (per chamber)</h3>
+<ul>
+<li>Thermal source: each chamber produces ~240 MW(th) at the 20 MJ @ 12 Hz reference.</li>
+<li>Primary coolant: FLiBe (baseline) or PbLi (variant).</li>
+<li>Nominal hot/cold temps: 650→550 °C (FLiBe) or 520→420 °C (PbLi).</li>
+<li>Design temperature rise: 100 K across the primary loop.</li>
+<li>Primary mass flow (FLiBe example):</li>
+<li>m_dot = Q/(cp*DeltaT) = 240 MW / (2.4 kJ/kg-K * 100 K) ≈ 1000 kg/s.</li>
+<li>With density ≈ 1.94 t/m³, volumetric flow ≈ 0.515 m³/s per chamber.</li>
+<li>Primary pump power (order-of-magnitude): for loop DeltaP ≈ 0.5 MPa,</li>
+<li>P_pump = V_dot * DeltaP ≈ 0.515 m³/s * 0.5 MPa ≈ 0.26 MW.</li>
+<li>With efficiency and margins, reserve ~0.5–1.0 MW per chamber.</li>
+</ul>
+<br/>
+<h3>6.2 Thermal buffer and pulsed-to-steady smoothing</h3>
+<ul>
+<li>Purpose: convert nanosecond bursts (and Hz repetition) into steady thermal input for the power block and to ride through pellet rejects.</li>
+<li>Design: dual molten-salt surge tanks per chamber.</li>
+<li>Sizing heuristic: 60 seconds of full chamber power ⇒ 14.4 GJ.</li>
+<li>FLiBe mass for 60 s buffer: m = E/(cp*DeltaT) ≈ 14.4 GJ / (2.4 kJ/kg-K * 100 K) ≈ 60 t.</li>
+<li>Volume: ~31 m³ (density ≈ 1.94 t/m³).</li>
+<li>Tanks include inert cover gas, level/temperature instrumentation, and isolation valves.</li>
+</ul>
+<br/>
+<h3>6.3 Power cycles</h3>
+<ul>
+<li>Option A — supercritical CO₂ (sCO₂) recompression Brayton cycle (preferred at ≥500 MWe):</li>
+<li>Turbine inlet: 550–600 °C, ~25 MPa; thermal-to-electric efficiency 35–40%.</li>
+<li>Hardware: single or dual strings with compact printed-circuit recuperators; CO₂ inventory tanks; start-up heaters.</li>
+<li>HX interface: double-wall FLiBe→sCO₂ primary heat exchanger, LMTD 50–120 K, area ≈ 10–20×10³ m² per chamber depending on U. Helium sweep between walls for leak detection and tritium interception.</li>
+<li>Option B — Superheated steam Rankine:</li>
+<li>Main steam: 540–565 °C, 16–24 MPa, reheat optional; thermal-to-electric efficiency 33–37%.</li>
+<li>HX: double-wall FLiBe→water/steam once-through steam generator; strict secondary-side chemistry; tritium monitor on sweep gas.</li>
+<li>Option C — ORC/steam (demonstrator only): compact 1–10 MW(th) skids to keep prototype simple.</li>
+</ul>
+<br/>
+<h3>6.4 Heat exchangers (engineering notes)</h3>
+<ul>
+<li>Configuration: double-wall, counter-flow, plate-and-frame or printed-circuit HX; helium sweep in inter-wall gap to detect pinhole leaks and capture permeating tritium.</li>
+<li>Materials: Ni-free, low-activation alloys on hot side; diffusion-barrier coatings (alumina/SiC) to cut tritium permeation by 10–100×.</li>
+<li>Design targets: approach temperature ≥20 K; allowable pressure drop ≤0.3 MPa per side; online DeltaP/DeltaT monitoring for fouling.</li>
+</ul>
+<br/>
+<h3>6.5 Electrical integration and auxiliaries</h3>
+<ul>
+<li>Parasitics (per chamber, budgetary): primary pumps 0.5–1 MW, injector/cryo 0.5 MW, alpha-coil power 0.5 MW average, controls/plant services 0.1 MW. (Laser parasitic accounted separately.)</li>
+<li>Grid code: power-factor control ±0.95; LVRT/HVRT compliant; synthetic inertia via turbine control.</li>
+<li>Ride-through: 1–3 MWh per 10-chamber block (battery or flywheel) to handle transients and black-start auxiliaries.</li>
+<li>Transformers and switchgear: ISO-rated step-ups; redundant feeds for safety systems.</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part7">PART 7: Controls, safety, and tritium handling (expanded; ALARA = as low as reasonably achievable)</h2>
+<br/>
+<h3>7.1 Control architecture</h3>
+<ul>
+<li>Timing fabric: deterministic **field‑programmable gate array (FPGA)** backplane with microsecond‑class events for injector gates and maser/laser timing; **Precision Time Protocol (PTP)** grandmaster clocks; redundant time sources.</li>
+<li>Supervisory control: real‑time **programmable logic controller (PLC)**/**real‑time operating system (RTOS)** for thermal loops, pumps, valves, heat exchangers; safety‑instrumented functions (SIF) independent of PLC for trips.</li>
+<li>Per‑shot logic: pellet tracked → accept window (position < 100 µm, timing <±2 µs) → maser arm → UV-foot → UV-spike. Any out-of-bounds ⇒ veto and beam dump.</li>
+<li>Diagnostics: fast cameras, Doppler velocimetry, photodiodes, x‑ray framing; health of optics (temperature, strain, transmission) checked between shots.</li>
+</ul>
+<br/>
+<h3>7.2 Trip matrix (non-exhaustive)</h3>
+<ul>
+<li>Injector fault: no pellet or duplicate pellet; chamber interlocks block shot.</li>
+<li>Targeting fault: pointing error >100 µm or timing error >2 µs.</li>
+<li>Optics health: window temperature/deflection over limit; debris rate over threshold.</li>
+<li>Shield/blanket: DeltaP high, flow low, or temperature high in primary loop.</li>
+<li>Radiation: in-vessel flux spikes; bioshield area monitors above setpoint.</li>
+<li>Tritium: sweep-gas monitors detect T over threshold; detritiation offline.</li>
+<li>Power block: HX leak detected; turbine trip; grid rejection.</li>
+</ul>
+<br/>
+<p>Each trip triggers a safe state: laser inhibit, injector safe-standby, maser off, alpha-coils ramp down, primary loop to hot-standby, valves to fail-safe, detritiation to high-flow.</p>
+<br/>
+<h3>7.3 Safety basis and ALARA</h3>
+<ul>
+<li>Design targets: site-boundary dose ~ background during normal ops; no single failure leads to off-site dose above the annual public limit.</li>
+<li>Classification: first wall/blanket and double-wall heat exchangers are safety-significant; interlocks and detritiation are safety-related; optics are non-safety but interlocked.</li>
+<li>Materials policy: low-activation steels/SiC; cobalt-free; restricted nickel.</li>
+<li>Remote handling: cassettes for optics, injector tips, first-wall tiles; shielded maintenance cells.</li>
+</ul>
+<br/>
+<h3>7.4 Tritium systems (closed-loop)</h3>
+<ul>
+<li>Mass balance (500+ MWe plant): total burned fuel ~0.61 kg/day ⇒ ~0.31 kg/day tritium consumed in fusion; the plant must breed/recover at or above this rate with margin.</li>
+<li>Loops:</li>
+<p>  1) Pellet fabrication and storage: T handling in gloveboxes with ZrCo or LaNi4.25Al0.75 getter beds; cryo layers formed in sealed lines.</p>
+<p>  2) Primary loop interception: all double-wall heat exchangers have helium sweep; sweep gas passes through oxidizers + dryers + molecular sieves → catalytic reactors → getter beds.</p>
+<p>  3) Detritiation unit (DTU): catalytic oxidation → drying → molecular sieve/zeolite → recombiners; design capacity 5–10 g-T/day per 10-chamber block (well above normal leakage) to cover upset events.</p>
+<p>  4) Permeation barriers: alumina/SiC coatings on hot surfaces; 10–100× reduction of T flux through steel.</p>
+<li>Monitoring: in-line T monitors on sweep gas, stack, auxiliary rooms; continuous stack sampling with delay beds; quarterly material smear tests.</li>
+<li>Releases: no routine releases; any planned maintenance releases pass through DTU and are measured and recorded.</li>
+</ul>
+<br/>
+<h3>7.5 Availability targets</h3>
+<ul>
+<li>Per-chamber availability: ≥90%; plant ≥85% capacity factor (downtime staggered across chambers).</li>
+<li>Critical spares: hot-standby lasers/maser tubes, injector modules, window cassettes, pump skids.</li>
+<li>Mean time to swap optics cassette: <2 h; injector head: <30 min.</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part8">PART 8: Scaling & preliminary economics (explicit & comparative)</h2>
+<br/>
+<h3>8.1 Why 400 MWe and above beat smaller plants</h3>
+<p>Fuel/target cost per MWh is roughly size‑invariant if gain (G) and laser efficiency stay the same, because it tracks fusion MJ per MWh and the laser parasitic. The big wins from scale are elsewhere:</p>
+<ul>
+<li>Capex per kW falls with size (six‑tenths rule here with exponent −0.3). Small plants still need full detritiation, safety, controls, and a turbine island, so $/kW is bloated.</li>
+<li>Fixed O&M dilution: staffing, regulatory, DTU, and site overheads spread over more MWh.</li>
+<li>Shared systems: one sCO₂ block can serve multiple chambers; one DTU train can handle several loops; pooled spares improve availability at lower inventory cost.</li>
+<li>Factory learning for targets: getting to $0.001 per MJ needs multi‑million targets per day. That volume appears only for 400–600 MWe multi‑chamber stations; sub‑200 MWe plants stay near $0.003 per MJ (or worse).</li>
+<li>Availability management: with 8–12 chambers, maintenance is staggered; two‑chamber sites (≤150 MWe) take bigger hits on capacity factor.</li>
+</ul>
+<br/>
+<h3>8.2 LCOE comparison by plant size (same physics and costs)</h3>
+<p>Assumptions held constant across sizes: G = 60, laser wall‑plug = 15%, thermal‑to‑electric = 33%, WACC 8%, life 30 years, capacity factor 85%, fixed O&M 3% of capex, variable O&M $3/MWh, target cost density $0.003 per MJ. Capex scaling anchored at $4,000/kW for a 400 MWe plant with exponent −0.3.</p>
+<br/>
+<table><tbody>
+<tr><td>Net size (MWe)</td><td>Capex $/kW</td><td>Total capex ($B)</td><td>Annualized capex ($M/yr)</td><td>Fixed O&M ($M/yr)</td><td>Variable O&M ($M/yr)</td><td>Fuel (targets) ($M/yr)</td><td>Annual MWh (CF)</td><td>LCOE ($/MWh)</td></tr>
+<tr><td>---:</td><td>---:</td><td>---:</td><td>---:</td><td>---:</td><td>---:</td><td>---:</td><td>---:</td><td>---:</td></tr>
+<tr><td>100</td><td>6,000</td><td>0.60</td><td>53.3</td><td>18.0</td><td>2.23</td><td>36.7</td><td>0.745 M</td><td>148</td></tr>
+<tr><td>200</td><td>4,924</td><td>0.985</td><td>87.4</td><td>29.5</td><td>4.47</td><td>73.4</td><td>1.489 M</td><td>131</td></tr>
+<tr><td>400</td><td>4,000</td><td>1.60</td><td>142.1</td><td>48.0</td><td>8.94</td><td>146.5</td><td>2.978 M</td><td>116</td></tr>
+<tr><td>525</td><td>3,686</td><td>1.94</td><td>172.0</td><td>58.1</td><td>11.73</td><td>193.0</td><td>3.912 M</td><td>111</td></tr>
+<tr><td>800</td><td>3,248</td><td>2.60</td><td>230.3</td><td>77.9</td><td>17.9</td><td>293.8</td><td>5.957 M</td><td>104</td></tr>
+</tbody></table>
+<br/>
+<p><strong>Figure — LCOE vs plant size:</strong></p>
+<br/>
+<p><img src="MBFR_LCOE_vs_Size_v1.png" alt="MBFR LCOE vs Plant Size"/></p>
+<br/>
+<p><strong>Figure — LCOE vs plant size (Base vs Gen‑2 target costs):</strong></p>
+<br/>
+<p><img src="MBFR_LCOE_vs_Size_Base_vs_Gen2.png" alt="MBFR LCOE vs Plant Size — Base vs Gen‑2"/></p>
+<br/>
+<p><strong>Figure — LCOE breakdown by component at 400/525/800 MWe (Base vs Gen‑2):</strong></p>
+<br/>
+<p><img src="MBFR_LCOE_Breakdown_Stacked_Base_vs_Gen2.png" alt="MBFR LCOE Breakdown — Base vs Gen‑2"/></p>
+<br/>
+<p>Notes: (i) With $0.003 per MJ, fuel lands near $49/MWh at these efficiencies (this already accounts for laser parasitic reducing net MWh). (ii) Small plants are usually worse than shown because their real target cost density tends to be above $0.003 per MJ until volume ramps.</p>
+<br/>
+<h3>8.3 Interpreting the table</h3>
+<ul>
+<li>Moving from 100 to 400 MWe cuts LCOE by roughly 30 percent, mostly from capex and O&M dilution; fuel per MWh barely changes.</li>
+<li>400 to 525 MWe still helps, but the curve flattens; beyond about 600–800 MWe you trade modest LCOE gains for higher single‑site risk and tougher grid interconnection.</li>
+<li>Practical sweet spot: 400–600 MWe net, built from about 50 MWe chambers. Big enough to unlock factory learning and shared systems, small enough to keep risk modular and availability high.</li>
+</ul>
+<br/>
+<h3>8.4 What pushes LCOE lower</h3>
+<ul>
+<li>Cheaper targets: moving factory cost from $0.003 to $0.001 per MJ drags fuel from about $49 to about $16/MWh; the 525 MWe case falls to about $78/MWh (see Part 12, Gen‑2).</li>
+<li>Better drivers: laser efficiency toward 20 percent or higher gain (for example, via improved coupling/maser assist) reduces the laser parasitic and lifts net per‑shot energy.</li>
+<li>Hotter power block: pushing sCO₂ to 38–40 percent cycle efficiency trims both fuel and $/kW (smaller turbine island per net MWe).</li>
+</ul>
+<br/>
+<h3>8.5 Bottom line</h3>
+<p>Small MBFR plants are technically feasible but not cost‑competitive. First commercial deployments should target 400 MWe and above, multi‑chamber stations, to hit credible $80–110/MWh bands now, with a path to $70–80/MWh as target factories and drivers mature.</p>
+<br/>
+<hr/>
+<br/>
+<h2 id="part9">PART 9: Worked examples (keep one‑liners exact)</h2>
+<br/>
+<ul>
+<li>**Example 1 – Demonstrator (~60 kWe):** 10 kJ/shot × 20 Hz = 200 kW(th); at 30% ⇒ **60 kWe**.</li>
+<li>**Example 2 – Reactions per 10 kJ shot:** \\(E/(17.6\\,\\text{MeV}) ≈ 3.55×10^{15}\\) reactions.</li>
+<li>**Example 3 – Daily output (10 kJ @ 10 Hz):** 100 kW(th) × 24 h = **2.4 MWh(th)**; at 30% ⇒ **0.72 MWh(e)**.</li>
+<p>  <em>(Corrects earlier 0.24 MWh/day figure.)</em></p>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part10">PART 10: Program plan (from paper to metal)</h2>
+<br/>
+<ol>
+<li>**Numerics & design closure**</li>
+<ul>
+<li>Neutronics (MCNP/Serpent) for blanket, dose, breeding options.</li>
+<li>Thermal/CFD (COMSOL/ANSYS) for absorber, tubes, and buffer.</li>
+<li>Beam/optics for spot size, pulse shaping, and window/film survivability.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>**Bench hardware**</li>
+<ul>
+<li>Injector breadboard with µs timing and reject‑on‑fault.</li>
+<li>KJ‑class DPSSL segment test with protective optics.</li>
+<li>Alpha‑capture coil/tube coupon test at representative fields (≥10 T) and standoff.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>**Integrated demonstrator**</li>
+<ul>
+<li>Single‑chamber, ~60 kWe continuous; data for availability, shot‑to‑shot reproducibility, and maintenance cycles.</li>
+</ol>
+</ul>
+<br/>
+<ol>
+<li>**NOAK plant**</li>
+<ul>
+<li>8–12 chamber array, 400–600 MWe net with standardized modules, spares, and target supply.</li>
+</ol>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part11">PART 11: FAQ (tight, unambiguous)</h2>
+<br/>
+<ul>
+<li>**Is MBFR “aneutronic”?** No. D–T produces 14.1 MeV neutrons. We design for near‑zero **external** dose and low‑activation materials.</li>
+<li>**Do you throw away unburnt fuel?** No. The dominant cost is **target manufacturing/handling**, not fuel mass. Uncaptured alphas and neutrons are recovered as heat in blankets.</li>
+<li>**Do alphas ignite the next pellet?** Not across shots. Alpha self‑heating improves yield **within the same micro‑burst**; plant power runs the driver between shots.</li>
+<li>**Why not 10 kWe products?** LCOE is dominated by per‑shot cost at low power. Economics improve sharply at 50 MWe/chamber and multi‑chamber plants.</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2 id="part12">PART 12: 500 MWe reference plant — worked case (updated to 12 Hz)</h2>
+<br/>
+<p><strong>Purpose:</strong> freeze a concrete 500+ MWe sizing using the Excel v2 baseline and expose the exact knobs to hit grid targets and LCOE.</p>
+<br/>
+<h3>Inputs (exact)</h3>
+<ul>
+<li>Chambers = **10**</li>
+<li>Rep‑rate = **12 Hz** per chamber</li>
+<li>Fusion yield/shot = **20 MJ** (D–T)</li>
+<li>Gain **G = 60**; laser wall‑plug **η_laser = 15%**</li>
+<li>Thermal→electric **η_th→e = 33%**</li>
+<li>Capacity factor **CF = 85%**, WACC **8%**, life **30 yr**</li>
+<li>Capex scaling: **$4,000/kW** at 400 MWe, exponent **−0.3**</li>
+<li>O&M: fixed **3%/yr of capex**, variable **$3/MWh**</li>
+<li>Target cost density: **$0.003/MJ** (factory v1) and **$0.001/MJ** (Gen‑2 sensitivity)</li>
+</ul>
+<br/>
+<h3>Derived plant performance (12 Hz, G=60)</h3>
+<ul>
+<li>**Net per chamber:** **52.53 MWe**  (Gross **79.2**, Laser parasitic **26.67** MWe)</li>
+<li>**Net plant:** **525.33 MWe**  (≥ 500 MWe)</li>
+<li>**Shots/targets per day:** **10,368,000** (whole plant)</li>
+<li>**Fuel mass burned:** **0.0589 mg/shot** ⇒ **0.611 kg/day** (plant)</li>
+<li>**Target cost per shot:** **$0.06** ⇒ **$622,080/day**</li>
+</ul>
+<br/>
+<h3>Economics (factory v1 @ $0.003/MJ)</h3>
+<ul>
+<li>**Capex:** **$3,686/kW** (scaled) ⇒ **$1.94B** total</li>
+<li>Annual energy (net, at CF): **3.912 TWh/yr**</li>
+<li>Annualized capex: **$172.0M/yr**; fixed O&M **$58.1M/yr**; variable O&M **$11.73M/yr**; **targets(fuel)** **$193.0M/yr**</li>
+<li>**LCOE:** **$111.2/MWh**</li>
+</ul>
+<br/>
+<h3>Gen‑2 pellet factory ( $0.001/MJ )</h3>
+<ul>
+<li>**Fuel cost** drops to **$16.45/MWh**; **LCOE → $78.3/MWh** (same hardware).</li>
+</ul>
+<br/>
+<h3>Shield stack for this plant (two material options)</h3>
+<ul>
+<li>**Option A (FLiBe‑first):** **25 cm FLiBe channels** + **5 cm B₄C** + **2.2 m heavy concrete (barite)** + **8 cm steel** (≥ 10⁶ attenuation goal).</li>
+<li>**Option B (poly‑first):** **35 cm borated poly** + **5 cm B₄C** + **2.0 m heavy concrete** + **10 cm steel**.</li>
+<p>  <em>Finals via MCNP/Serpent using the 20 MJ @ 12 Hz source term and your chamber radius.</em></p>
+</ul>
+<br/>
+<h3>Driver architecture (beamlet split so optics live)</h3>
+<ul>
+<li>**Per‑shot optical energy:** **E_l = 0.333 MJ**. Split across **N_beams = 192–384**.</li>
+<p>  Examples (5 ns pulses):</p>
+<li>192 beams ⇒ **1.73 kJ/beam**, **0.346 TW/beam**</li>
+<li>256 beams ⇒ **1.30 kJ/beam**, **0.260 TW/beam**</li>
+<li>384 beams ⇒ **0.87 kJ/beam**, **0.173 TW/beam**</li>
+<li>Keep per‑beam fluence under vendor damage limits with ≥2× safety factor using enlarged clear apertures + gas curtain or liquid film at windows.</li>
+</ul>
+<br/>
+<h3>Chamber radius ↔ wall load (design aide)</h3>
+<ul>
+<li>D–T neutrons carry ~**80%** of fusion energy. At **20 MJ/shot × 12 Hz**, **P_n ≈ 192 MW** per chamber into the blanket. Average spherical wall power density (before moderation):</li>
+<li>**R = 1.2 m:** **10.6 MW/m²**</li>
+<li>**R = 1.5 m:** **6.8 MW/m²**</li>
+<li>**R = 1.8 m:** **4.7 MW/m²**</li>
+<li>**R = 2.0 m:** **3.8 MW/m²**</li>
+<p>  <em>Use this to pick first‑wall materials and cooling; the blanket/ moderator strongly reduces what reaches structural steel.</em></p>
+</ul>
+<br/>
+<h3>MCNP/Serpent starter deck (skeleton)</h3>
+<ul>
+<li>**Materials:**</li>
+<li>`m1` low‑activation steel (Fe‑Cr‑W, no Co), `m2` SiC, `m3` B4C (natural B or enriched B‑10), `m4` FLiBe, `m5` barite concrete, `m6` steel liner.</li>
+<li>**Cells/geometry:**</li>
+<li>Spherical void (radius R) as source region; inner first‑wall shell (thickness t_FW, m1 or SiC); annular moderator (m4 or borated poly); annular B4C capture layer; bulk concrete; outer steel.</li>
+<li>**Source (SDEF):** energy distribution peaked at 14.1 MeV; isotropic; strength set to **192 MW/chamber** neutrons. Time‑independent for average analysis.</li>
+<li>**Tallies:** `F4:n` flux in each layer; `*F8:n` energy deposition; dose conversion via `DE/DF` cards; track tritium production if breeding enabled.</li>
+<li>**Outputs:** TVL verification, dose outside bioshield, activation precursors for material choices.</li>
+</ul>
+<br/>
+<p>> All of the above is reproduced in <strong>MBFR_500MWe_12Hz_v2.xlsx</strong> (beamlet split table, wall‑load vs radius, shield options). Adjust rep‑rate or gain to center exactly where you want on net MW and LCOE bands.</p>
+<br/>
+<h2 id="conclusion">Conclusion</h2>
+<p>MBFR rethinks fusion around <strong>repeatable, modest‑yield micro‑bursts</strong>, engineered <strong>for power production first</strong>. The pathway is practical: kJ–MJ drivers at rep‑rate, simple pellets, survivable optics, near‑field alpha management, conservative shielding, and utility‑class modules clustered to 400–600 MWe. With disciplined assumptions and standard nuclear‑grade safety engineering, MBFR targets <strong>cheap, clean, scalable electricity</strong>—without the complexities of sustained plasma confinement.</p>
+  <h2 id="figures">Figures (schematic, not to scale)</h2>
+  <div id="fig-block" class="figure">
+    <img src="MBFR_system_block.svg" alt="System block diagram">
+    <div class="caption">Figure A — System block diagram</div>
+  </div>
+  <div id="fig-cross" class="figure">
+    <img src="MBFR_chamber_cross_section.svg" alt="Chamber cross-section">
+    <div class="caption">Figure B — Chamber cross‑section</div>
+  </div>
+  <div id="fig-timing" class="figure">
+    <img src="MBFR_timing_timeline.svg" alt="Shot timing">
+    <div class="caption">Figure C — Shot timing (µs/ns)</div>
+  </div>
+  <div id="fig-layout" class="figure">
+    <img src="MBFR_multi_chamber_layout.svg" alt="Multi-chamber layout">
+    <div class="caption">Figure D — Multi‑chamber station layout</div>
+  </div>
+
+</main>
+<footer>
+  <div>Last updated: 2025-08-11 10:53 IST · Math via MathJax · Diagrams are schematic. <a href="/">← Back to vinayjha.com</a></div>
+</footer>
+
+<script>
+  // Fold/Unfold TOC
+  const foldLink = document.getElementById('tocFold');
+  const toc = document.getElementById('toc');
+  let folded = false;
+  foldLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    folded = !folded;
+    const lists = toc.querySelectorAll('ol');
+    for (const l of lists) {
+      if (l !== lists[0]) l.style.display = folded ? 'none' : '';
+    }
+    foldLink.textContent = folded ? 'Unfold' : 'Fold';
+  });
+</script>
+
+</body>
+</html>
