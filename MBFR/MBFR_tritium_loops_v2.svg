@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560" role="img">
+<style>
+    .title{font:700 18px system-ui,Segoe UI,Arial}
+    .label{font:600 13px system-ui,Segoe UI,Arial; fill:#0f172a}
+    .legend{font:600 12px system-ui,Segoe UI,Arial; fill:#0f172a}
+    .note{font:500 11px system-ui,Segoe UI,Arial; fill:#475569}
+    .box{fill:#f8fafc; stroke:#cbd5e1}
+    .pipe{fill:none; stroke:#475569; stroke-width:3}
+    .arrow{marker-end:url(#arrow)}
+  </style>
+  <defs>
+   <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+     <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+   </marker>
+  </defs>
+<rect width="100%" height="100%" fill="#fff"/><text x="24" y="34" class="title">Heat & Tritium Loops (simplified PFD)</text><rect x="70" y="100" width="270" height="170" rx="10" class="box"/><text x="82" y="122" class="label">Fusion chamber +
+blanket & first wall</text><rect x="370" y="110" width="240" height="110" rx="10" class="box"/><text x="382" y="132" class="label">Thermal buffer
+(FLiBe / PbLi)</text><rect x="650" y="110" width="260" height="110" rx="10" class="box"/><text x="662" y="132" class="label">Double‑wall HX →
+Power block (sCO₂/steam)</text><rect x="70" y="320" width="270" height="120" rx="10" class="box"/><text x="82" y="342" class="label">Detritiation unit (DTU)
+oxidizer → dryer → sieves → getters</text><rect x="370" y="320" width="240" height="120" rx="10" class="box"/><text x="382" y="342" class="label">Tritium handling
+(getter beds, storage)</text><rect x="650" y="320" width="260" height="120" rx="10" class="box"/><text x="662" y="342" class="label">Pellet factory &
+cryo layering</text><path d="M 340 160 L 370 160" class="pipe arrow"/><path d="M 610 160 L 650 160" class="pipe arrow"/><path d="M 780 220 C 780.0 220, 780.0 320, 780 320" class="pipe arrow"/><path d="M 780 320 L 780 430" class="pipe arrow"/><path d="M 650 430 L 610 380" class="pipe arrow"/><path d="M 610 380 L 490 380" class="pipe arrow"/><path d="M 490 380 L 340 380" class="pipe arrow"/><path d="M 340 380 L 210 380" class="pipe arrow"/><path d="M 210 380 L 210 270" class="pipe arrow"/><path d="M 210 270 L 210 200" class="pipe arrow"/><path d="M 650 430 L 180 200" class="pipe arrow"/><text x="24" y="528" class="note">Helium sweep gas runs between HX walls; any permeated Tritium is trapped and sent to DTU. No routine releases; all loops closed and monitored.</text></svg>
