@@ -62,3 +62,10 @@
 .tabs-nav .sub li{list-style:none}
 .tabs-nav .sub a{display:block;padding:6px 10px;text-decoration:none;color:var(--tab-blue-text);font-size:14px;white-space:nowrap}
 .tabs-nav .sub a:hover{background:var(--tab-blue);text-decoration:underline}
+/* --- Fix title contrast on dark header bars --- */
+header, .masthead, .page-header { background:#0b1020; }   /* your dark bar */
+header h1, header h2,
+.masthead h1, .masthead h2,
+.page-header h1, .page-header h2 {
+  color:#ffffff !important;        /* force white titles */
+}
