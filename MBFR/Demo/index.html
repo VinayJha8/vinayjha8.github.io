@@ -4,13 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/css/style.css?v=3">
-<title>MBFR — 2&nbsp;MWe Demonstrator — Net‑Positive Operating Points</title>
+<title>MBFR — ~1&nbsp;MWe Net Demonstrator — Net-Positive Operating Points</title>
 <style>
   :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --red:#b91c1c; --bg:#0b1020; }
   * { box-sizing:border-box; }
   body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial; margin:0; color:var(--ink); line-height:1.45; }
-  <div id="site-nav"></div>
-  <script defer src="/js/nav.js"></script>
   header { background:var(--bg); color:#fff; padding:28px 16px; }
   header h1 { margin:0 0 6px 0; font-weight:800; font-size:28px; }
   header p { margin:0; color:#111; }
@@ -36,9 +34,13 @@
 </style>
 </head>
 <body>
+
+<div id="site-nav"></div>
+<script defer src="/css/nav.js"></script>
+
 <header>
-  <h1>MBFR — 2&nbsp;MWe Demonstrator (v2)</h1>
-  <p>Small, net‑positive direct‑drive micro‑burst reactor: operating points, driver layout, timing, and acceptance tests</p>
+  <h1>MBFR — ~1&nbsp;MWe Net Demonstrator (v2)</h1>
+  <p>Small, net-positive direct-drive micro-burst reactor: operating points, driver layout, timing, and acceptance tests</p>
 </header>
 <main>
 
@@ -46,11 +48,11 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#summary">Executive summary</a></li>
-    <li><a href="#net">Net‑positive operating points</a></li>
+    <li><a href="#net">Net-positive operating points</a></li>
     <li><a href="#modes">Operating modes (1 Hz vs 5 Hz vs 10 Hz)</a></li>
-    <li><a href="#driver">4096‑brick driver — how the “many small lasers” combine</a></li>
-    <li><a href="#timing">Single‑seed timing &amp; jitter budget</a></li>
-    <li><a href="#dual">Dual‑chamber handover &amp; buffer sizing</a></li>
+    <li><a href="#driver">4096-brick driver — how the “many small lasers” combine</a></li>
+    <li><a href="#timing">Single-seed timing &amp; jitter budget</a></li>
+    <li><a href="#dual">Dual-chamber handover &amp; buffer sizing</a></li>
     <li><a href="#targeting">Pellet tracking &amp; targeting accuracy</a></li>
     <li><a href="#meters">Meters &amp; acceptance test (for policymakers)</a></li>
     <li><a href="#figs">Figures</a></li>
@@ -59,114 +61,118 @@
 
 <section id="summary">
 <h2>Executive summary</h2>
-<p>This demonstrator aims to be <b>net‑electric positive</b> while staying small enough for fast licensing and rapid iteration. The most defensible point is <b>2&nbsp;MJ/shot @ 5&nbsp;Hz</b> with <b>G≈35</b>, laser wall‑plug <b>≈15%</b>, and auxiliaries ≈ <b>0.5&nbsp;MWe</b>. That combination yields about <b>+0.9&nbsp;MWe net</b> while keeping window fluence, panel apertures, and pellet logistics modest.</p>
+<p>
+This demonstrator aims to be <b>net-electric positive</b> while staying small enough for fast licensing and rapid iteration.
+The most defensible point is <b>2&nbsp;MJ/shot @ 5&nbsp;Hz</b> with <b>G≈35</b>, laser wall-plug <b>≈15%</b>, and auxiliaries ≈ <b>0.5&nbsp;MWe</b>.
+That combination yields about <b>+0.9&nbsp;MWe net</b> (≈<b>1&nbsp;MWe-class</b>) while keeping window fluence, panel apertures, and pellet logistics modest.
+</p>
 </section>
 
 <section id="net">
-<h2>Net‑positive operating points</h2>
+<h2>Net-positive operating points</h2>
 <p>Net &ge; 0 if and only if:<br>
 <code>E<sub>f</sub>&middot;f &times; ( &eta;<sub>th→e</sub> − 1/(G&middot;&eta;<sub>laser</sub>) ) &ge; P<sub>aux</sub></code></p>
 <p>With G=35, &eta;<sub>laser</sub>=0.15, &eta;<sub>th→e</sub>=0.33, the bracket is <b>0.1395</b>. Below are concrete points that clear net.</p>
 
-    <table class="op-table">
-      <thead>
-        <tr>
-          <th>Case</th>
-          <th>E<sub>f</sub> (MJ)</th>
-          <th>Hz</th>
-          <th>G</th>
-          <th>&eta;<sub>laser</sub></th>
-          <th>P<sub>aux</sub> (MWe)</th>
-          <th>P<sub>th</sub> (MW)</th>
-          <th>Gross MWe</th>
-          <th>Laser elec (MWe)</th>
-          <th><b>Net MWe</b></th>
-        </tr>
-      </thead>
-      <tbody>
-    
-        <tr>
-          <td>A — 4 MJ @ 1 Hz (low-rep net)</td>
-          <td>4.00</td>
-          <td>1.00</td>
-          <td>35</td>
-          <td>0.15</td>
-          <td>0.30</td>
-          <td>4.00</td>
-          <td>1.32</td>
-          <td>0.76</td>
-          <td><b>0.26</b></td>
-        </tr>
-        
-        <tr>
-          <td>B — 2 MJ @ 2 Hz (minimum net)</td>
-          <td>2.00</td>
-          <td>2.00</td>
-          <td>35</td>
-          <td>0.15</td>
-          <td>0.50</td>
-          <td>4.00</td>
-          <td>1.32</td>
-          <td>0.76</td>
-          <td><b>0.06</b></td>
-        </tr>
-        
-        <tr>
-          <td>C — 2 MJ @ 5 Hz (recommended demo)</td>
-          <td>2.00</td>
-          <td>5.00</td>
-          <td>35</td>
-          <td>0.15</td>
-          <td>0.50</td>
-          <td>10.00</td>
-          <td>3.30</td>
-          <td>1.90</td>
-          <td><b>0.90</b></td>
-        </tr>
-        
-        <tr>
-          <td>D — 2 MJ @ 10 Hz (clear net)</td>
-          <td>2.00</td>
-          <td>10.00</td>
-          <td>35</td>
-          <td>0.15</td>
-          <td>1.00</td>
-          <td>20.00</td>
-          <td>6.60</td>
-          <td>3.81</td>
-          <td><b>1.79</b></td>
-        </tr>
-        
-        <tr>
-          <td>E — 2 MJ @ 1 Hz (efficiency boost)</td>
-          <td>2.00</td>
-          <td>1.00</td>
-          <td>40</td>
-          <td>0.20</td>
-          <td>0.30</td>
-          <td>2.00</td>
-          <td>0.66</td>
-          <td>0.25</td>
-          <td><b>0.11</b></td>
-        </tr>
-        
-        <tr>
-          <td>F — 4 MJ @ 1 Hz (higher gain)</td>
-          <td>4.00</td>
-          <td>1.00</td>
-          <td>40</td>
-          <td>0.15</td>
-          <td>0.30</td>
-          <td>4.00</td>
-          <td>1.32</td>
-          <td>0.67</td>
-          <td><b>0.35</b></td>
-        </tr>
-        
-      </tbody>
-    </table>
-    
-<p class="small"><b>Recommendation:</b> start at <b>Case C</b> (2 MJ @ 5 Hz) for a clean net‑positive claim; qualify 1 Hz physics at 4 MJ (Case A) during bring‑up.</p>
+<table class="op-table">
+  <thead>
+    <tr>
+      <th>Case</th>
+      <th>E<sub>f</sub> (MJ)</th>
+      <th>Hz</th>
+      <th>G</th>
+      <th>&eta;<sub>laser</sub></th>
+      <th>P<sub>aux</sub> (MWe)</th>
+      <th>P<sub>th</sub> (MW)</th>
+      <th>Gross MWe</th>
+      <th>Laser elec (MWe)</th>
+      <th><b>Net MWe</b></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td>A — 4 MJ @ 1 Hz (low-rep net)</td>
+      <td>4.00</td>
+      <td>1.00</td>
+      <td>35</td>
+      <td>0.15</td>
+      <td>0.30</td>
+      <td>4.00</td>
+      <td>1.32</td>
+      <td>0.76</td>
+      <td><b>0.26</b></td>
+    </tr>
+
+    <tr>
+      <td>B — 2 MJ @ 2 Hz (minimum net)</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>35</td>
+      <td>0.15</td>
+      <td>0.50</td>
+      <td>4.00</td>
+      <td>1.32</td>
+      <td>0.76</td>
+      <td><b>0.06</b></td>
+    </tr>
+
+    <tr>
+      <td>C — 2 MJ @ 5 Hz (recommended demo)</td>
+      <td>2.00</td>
+      <td>5.00</td>
+      <td>35</td>
+      <td>0.15</td>
+      <td>0.50</td>
+      <td>10.00</td>
+      <td>3.30</td>
+      <td>1.90</td>
+      <td><b>0.90</b></td>
+    </tr>
+
+    <tr>
+      <td>D — 2 MJ @ 10 Hz (clear net)</td>
+      <td>2.00</td>
+      <td>10.00</td>
+      <td>35</td>
+      <td>0.15</td>
+      <td>1.00</td>
+      <td>20.00</td>
+      <td>6.60</td>
+      <td>3.81</td>
+      <td><b>1.79</b></td>
+    </tr>
+
+    <tr>
+      <td>E — 2 MJ @ 1 Hz (efficiency boost)</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>40</td>
+      <td>0.20</td>
+      <td>0.30</td>
+      <td>2.00</td>
+      <td>0.66</td>
+      <td>0.25</td>
+      <td><b>0.11</b></td>
+    </tr>
+
+    <tr>
+      <td>F — 4 MJ @ 1 Hz (higher gain)</td>
+      <td>4.00</td>
+      <td>1.00</td>
+      <td>40</td>
+      <td>0.15</td>
+      <td>0.30</td>
+      <td>4.00</td>
+      <td>1.32</td>
+      <td>0.67</td>
+      <td><b>0.35</b></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<p class="small"><b>Recommendation:</b> start at <b>Case C</b> (2 MJ @ 5 Hz) for a clean net-positive claim; qualify 1 Hz physics at 4 MJ (Case A) during bring-up.</p>
 </section>
 
 <section id="modes">
@@ -174,36 +180,38 @@
 <ul class="tight">
   <li><b>1 Hz:</b> ideal for early optics/chamber debugging; net needs 4 MJ/shot or better efficiency. Least debris per hour; easiest diagnostics.</li>
   <li><b>5 Hz (recommended):</b> balances pellet throughput with clear net. Window/film life is manageable; pumps/cryo don’t dominate auxiliaries.</li>
-  <li><b>10 Hz:</b> full‑rate feasibility and availability testing. Use after debris, symmetry, and injector QA are proven.</li>
+  <li><b>10 Hz:</b> full-rate feasibility and availability testing. Use after debris, symmetry, and injector QA are proven.</li>
 </ul>
 </section>
 
 <section id="driver">
-<h2>4096‑brick driver — how the “many small lasers” combine</h2>
+<h2>4096-brick driver — how the “many small lasers” combine</h2>
 <ul class="tight">
   <li><b>Architecture:</b> 4096 DPSSL bricks &rarr; <b>256 final beams</b> (≈16 bricks/beam) arranged over ≈12 panels. Incoherent addition; no phase lock required.</li>
   <li><b>2 MJ @ 5 Hz, G=35:</b> total UV per shot ≈ <b>57 kJ</b> ⇒ <b>~223 J/beam</b>. With a 3 J/cm² damage threshold (2× margin), the <b>clear aperture per beam is ≈ 9–11 cm</b>.</li>
-  <li><b>Per‑brick duty:</b> 57 kJ / 4096 ≈ <b>14 J/brick/shot</b>; at 5 Hz ⇒ <b>70 W optical/brick</b> (~<b>470 W</b> wall‑plug/brick @ 15%).</li>
+  <li><b>Per-brick duty:</b> 57 kJ / 4096 ≈ <b>14 J/brick/shot</b>; at 5 Hz ⇒ <b>70 W optical/brick</b> (~<b>470 W</b> wall-plug/brick @ 15%).</li>
   <li><b>Tripling near the panel:</b> combine at 1064 nm, then convert to 3&omega; just ahead of the final window to keep UV path short.</li>
-  <li><b>Window survival:</b> large apertures + gas curtain or thin liquid film; cassette swaps restore performance; per‑beam power balance ±3%.</li>
-  <li><b>Graceful degradation:</b> install 18 bricks/beam, use 16; controller rebalances on failure; hot‑swap brick cassettes.</li>
+  <li><b>Window survival:</b> large apertures + gas curtain or thin liquid film; cassette swaps restore performance; per-beam power balance ±3%.</li>
+  <li><b>Graceful degradation:</b> install 18 bricks/beam, use 16; controller rebalances on failure; hot-swap brick cassettes.</li>
 </ul>
 </section>
 
 <section id="timing">
-<h2>Single‑seed timing &amp; jitter budget</h2>
+<h2>Single-seed timing &amp; jitter budget</h2>
 <ul class="tight">
-  <li><b>One master seed</b> at 1064 nm fan‑out by stabilized fibers; each brick gated by a Pockels cell with fine delay.</li>
-  <li><b>Measured/trimmed jitter &lt; 50 ps</b> panel‑to‑panel using pilot pulses and cross‑correlation. Way below what pellet flight demands.</li>
-  <li><b>Maser pre‑heat:</b> pulsed gyrotron, e.g., <b>1 MW peak for 20–100 µs</b> (≈ 20–100 J delivered). Average draw is only a few kW at 5–10 Hz.</li>
+  <li><b>One master seed</b> at 1064 nm fan-out by stabilized fibers; each brick gated by a Pockels cell with fine delay.</li>
+  <li><b>Measured/trimmed jitter &lt; 50 ps</b> panel-to-panel using pilot pulses and cross-correlation. Way below what pellet flight demands.</li>
+  <li><b>Maser pre-heat:</b> pulsed gyrotron, e.g., <b>1 MW peak for 20–100 µs</b> (≈ 20–100 J delivered). Average draw is only a few kW at 5–10 Hz.</li>
 </ul>
 </section>
 
 <section id="dual">
-<h2>Dual‑chamber handover &amp; buffer sizing</h2>
-<p>Two chambers alternate so availability stays high. A small molten‑salt buffer rides the 5–10 minute handover:</p>
+<h2>Dual-chamber handover &amp; buffer sizing</h2>
+<p>
+Two chambers alternate so availability stays high. The actual thermal handover between chambers is on the order of <b>~60 s</b>; a small molten-salt buffer rides this short ramp so the turbine island sees nearly constant power. Longer 5–10 minute pauses are reserved for diagnostics and maintenance at reduced load, not full-rate buffering.
+</p>
 <ul class="tight">
-  <li><b>Buffer sizing heuristic:</b> 60 s of full thermal output. For 10 MW(th) demo heat, E = 600 MJ. With FLiBe (c<sub>p</sub>≈2.4 kJ/kg‑K) and &Delta;T=100 K → <b>m ≈ 2.5 t</b> (≈1.3 m³). Scale linearly with thermal power.</li>
+  <li><b>Buffer sizing heuristic (for handover):</b> 60 s of full thermal output. For 10 MW(th) demo heat, E = 600 MJ. With FLiBe (c<sub>p</sub>≈2.4 kJ/kg-K) and &Delta;T=100 K → <b>m ≈ 2.5 t</b> (≈1.3 m³). Scale linearly with thermal power.</li>
   <li><b>Continuous pellet factory:</b> stays at 5–10 Hz and feeds whichever chamber is live.</li>
 </ul>
 </section>
@@ -213,15 +221,15 @@
 <ul class="tight">
   <li>Pellet speed ≈ <b>300 m/s</b>; 2 m standoff gives <b>6.7 ms</b> flight. Hitting a <b>100 µm</b> window needs <b>0.33 µs</b> timing accuracy—easy vs 50 ps laser jitter.</li>
   <li><b>Pointing:</b> 100 µm at 2 m → <b>50 µrad</b>. Fast tip/tilt stages (kHz) can hold this.</li>
-  <li><b>Shot sequence:</b> stereo/ToF → predict → <b>maser (−30…−3 µs)</b> → UV foot → 5 ns spike → veto outside gate.</li>
+  <li><b>Shot sequence:</b> stereo/ToF → predict → maser (−30…−3 µs) → UV foot → 5 ns spike → veto outside gate.</li>
 </ul>
 </section>
 
 <section id="meters">
 <h2>Meters &amp; acceptance test (for policymakers)</h2>
 <ul class="tight">
-  <li><b>Revenue‑grade meters</b> on: (i) bus export, (ii) laser racks, (iii) all other auxiliaries.</li>
-  <li><b>Public display:</b> 15‑min rolling net power = P<sub>bus</sub> − P<sub>laser</sub> − P<sub>aux</sub>.</li>
+  <li><b>Revenue-grade meters</b> on: (i) bus export, (ii) laser racks, (iii) all other auxiliaries.</li>
+  <li><b>Public display:</b> 15-min rolling net power = P<sub>bus</sub> − P<sub>laser</sub> − P<sub>aux</sub>.</li>
   <li><b>Acceptance criterion:</b> sustain <b>&ge; +0.5 MWe net</b> for <b>&ge; 30 minutes</b> at the selected operating point (e.g., Case C).</li>
 </ul>
 </section>
@@ -230,24 +238,24 @@
 <h2>Figures</h2>
 <div class="figure">
   <img src="../MBFR_chamber_cross_section_v1.svg" alt="MBFR chamber cross-section">
-  <div class="caption">Figure 1 — Chamber cross‑section: injector, maser, beam panels, alpha capture, blanket stack, HX.</div>
+  <div class="caption">Figure 1 — Chamber cross-section: injector, maser, beam panels, alpha capture, blanket stack, HX.</div>
 </div>
 <div class="figure">
   <img src="../MBFR_system_block_v3a.svg" alt="Detailed system block diagram">
-  <div class="caption">Figure 2 — System block: factory → injector → maser → UV panels → chamber → buffer → double‑wall HX → power, with closed tritium loops.</div>
+  <div class="caption">Figure 2 — System block: factory → injector → maser → UV panels → chamber → buffer → double-wall HX → power, with closed tritium loops.</div>
 </div>
 <div class="figure">
   <img src="../MBFR_laser_panels_v2.svg" alt="UV panel arrangement">
-  <div class="caption">Figure 3 — UV panel arrangement (12 panels × 16–32 beamlets ⇒ 192–384 beams).</div>
+  <div class="caption">Figure 3 — UV panel arrangement (example: 12 panels totaling 256 beams; each panel carries ≈16–24 beamlets).</div>
 </div>
 <div class="figure">
   <img src="../MBFR_tritium_loops_v3a.svg" alt="Heat and tritium loops">
-  <div class="caption">Figure 4 — Heat &amp; tritium loops (helium‑swept double‑wall HX; DTU; pellet factory recirculation).</div>
+  <div class="caption">Figure 4 — Heat &amp; tritium loops (helium-swept double-wall HX; DTU; pellet factory recirculation).</div>
 </div>
 </section>
 
 <footer class="small" style="border-top:1px solid var(--line); padding-top:10px; margin-top:24px;">
-  Last updated: 2025-08-11 20:17 IST · This page is a concise companion to the long MBFR article. It focuses on the smallest net‑positive demo that convinces policymakers and engineers.
+  Last updated: 2025-12-01 IST · This page is a concise companion to the long MBFR article. It focuses on the smallest net-positive demo that convinces policymakers and engineers.
 </footer>
 
 </main>
