@@ -4,42 +4,145 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>MBFR — Micro‑Burst Fusion Reactor</title>
-<div class="title">Table of Contents</div>
-<div id="toc-list">
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc0">Fusion Electricity Generation Project Report</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc1">PART 1: Theoretical Foundation &amp; System Concept</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc2">PART 2: Engineering Overview of 10&nbsp;kW Unit</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc3">PART 3: Component Schematics (Abstract Summary)</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc4">PART 4: Component Schematics (Abstract Summary)</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc5">PART 5: Complete Modular Fusion Power Plant Architecture</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc6">Conclusion</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc7">Current Research : Sustained Plasma</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc8">Microburst Fusion Power Plant</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc9">The Golden Mean Principle for Microburst Fusion Design</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc10">Golden Mean Microburst Fusion Reactor Specification Sheet</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc11">Microburst Fusion Reactor for Consumer Electricity Generation</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc12">Tritium Breeding</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc13">Feasibility Report</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc14">Microburst needed for Sustainable Fusion Reactor</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc15">Fusion Microburst Reactor &mdash; Full System Block Diagram</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc16">Protype Fusion Reactor</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc17">CAD Blueprint: D-T Microburst Fusion Reactor with Tritium Breeder</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc18">Excel spreadsheet template</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc19">Multi-Stage Microburst Chains</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc20">Tritium Breeding Chain Estimator</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc21">Material Fatigue Prediction Module</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc22">All Excel modules combined</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc23">Smallest Feasible Microburst Fusion Reactor</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc24">Cost of Electricity for Smallest Reactor</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc25">Large-Scale Microburst Fusion Reactor</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc26">Applications</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc27">Fusion Reactor for Aeroplane</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc28">Train</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc29">Home Use</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc30">Tritium Bottling : Tank, Truck, Bus, Car</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc31">CAD for Smallest Reactor</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc32">Why Our Microburst Household Reactor Needs Far Less Feature</a></div>
-<div><a href="http://vinayjhaa.wikidot.com/microburst-fusion-reactor#toc33">Formal Physics Analysis of Microburst Fusion</a></div>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<link rel="stylesheet" href="/css/style.css?v=3">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root {
+    --ink: #0f172a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --red: #b91c1c;
+    --bg-head: #0b1020;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.58; color: var(--ink); margin:0; padding:0; }
+  <div id="site-nav"></div>
+  <script defer src="/js/nav.js"></script>
+  header { background: var(--bg-head); color: #0b1020; padding: 28px 16px; }
+  header h1 { margin:0 0 6px 0; font-size: 28px; color: blue; }
+  main { max-width: 980px; margin: 22px auto; padding: 0 16px 80px; }
+  h1, h2, h3 { color: var(--red); }
+  h2 { margin-top: 2.0em; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  h3 { margin-top: 1.2em; }
+  p { margin: 0.6em 0; }
+  ul, ol { margin: 0.6em 0 0.6em 1.3em; }
+  a { color:#0d6efd; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .top-links { background:#fff7ed; border:1px solid #fdba74; padding:10px 12px; border-radius:8px; margin:12px 0 18px; font-size:14px; }
+  .top-links b { color:#7c2d12; }
+  .fig-ref a { margin-right:10px; white-space:nowrap; }
+  .toc { border:1px solid var(--line); border-radius:8px; padding:10px 12px; background:#f8fafc; }
+  .toc .hdr { display:flex; justify-content:space-between; align-items:center; }
+  .toc .title { font-weight:700; }
+  .toc a.fold { font-size:12px; color:#64748b; text-decoration:none; }
+  .toc ol { margin:8px 0 0 16px; }
+  .toc li { margin:2px 0; }
+  .figure { margin: 14px 0 24px; font-size: 13px; color: #334155; }
+  .figure img { max-width:100%; height:auto; border:1px solid var(--line); border-radius:6px; }
+  .caption { margin-top: 6px; text-align:center; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0 16px; }
+  th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  footer { border-top:1px solid var(--line); color: var(--muted); font-size:13px; padding:18px 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>MBFR</h1>
+</header>
+<main>
+
+<div class="toc" id="toc">
+  <div class="hdr">
+    <div class="title">Table of Contents</div>
+    <a href="#" class="fold" id="tocFold">Fold</a>
+  </div>
+  <ol>
+    <li><a href="#part1">PART 1: Theoretical foundation &amp; system concept</a></li>
+    <li><a href="#part2">PART 2: Reference design points</a>
+      <ol>
+        <li><a href="#part2a">A) Subsystem demonstrator (non‑economic prototype)</a></li>
+        <li><a href="#part2b">B) Plant‑scale chamber (economic module)</a></li>
+      </ol>
+    </li>
+    <li><a href="#part3">PART 3: Fuel, targets, and injector (explicit)</a></li>
+    <li><a href="#part4">PART 4: Driver and final optics (explicit spec)</a></li>
+    <li><a href="#part4a">PART 4A: Maser preheat + laser panel ignition (detailed)</a></li>
+    <li><a href="#part5">PART 5: Fusion chamber, alpha management, blanket &amp; shielding</a></li>
+    <li><a href="#part6">PART 6: Power conversion and balance of plant</a></li>
+    <li><a href="#part7">PART 7: Controls, safety, and tritium handling</a></li>
+    <li><a href="#part8">PART 8: Scaling &amp; preliminary economics</a></li>
+    <li><a href="#part9">PART 9: Worked examples</a></li>
+    <li><a href="#part10">PART 10: Program plan</a></li>
+    <li><a href="#part11">PART 11: FAQ</a></li>
+    <li><a href="#part12">PART 12: 500 MWe reference plant — worked case (Excel v2)</a></li>
+    <li><a href="#figures">Figures</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</div>
+
+<div class="top-links" style="margin-top:12px">
+  <div><b>Downloads:</b>
+    <a href="MBFR_Full_Article_with_Diagrams_v4.docx">DOCX (full article)</a> ·
+    <a href="MBFR_chamber_cross_section.dxf">DXF (chamber cross‑section)</a>
+  </div>
+  <div style="margin-top:6px;"><b>Figures (jump to):</b>
+    <span class="fig-ref">
+      <a href="#fig-block">Fig A — System block</a>
+      <a href="#fig-cross">Fig B — Chamber cross‑section</a>
+      <a href="#fig-timing">Fig C — Shot timing</a>
+      <a href="#fig-layout">Fig D — Multi‑chamber layout</a>
+      <a href="#fig-persp">Fig E — Chamber cutaway</a>
+      <a href="#fig-block2">Fig F — Block diagram (detailed)</a>
+      <a href="#fig-panels">Fig G — UV panel geometry</a>
+      <a href="#fig-loops">Fig H — Heat &amp; Tritium loops</a>
+    </span>
+  </div>
+</div>
+<h1>Micro‑Burst Fusion Reactor (MBFR)</h1>
+<h2>Scalable D–T inertial fusion for low‑cost electricity</h2>
+<br/>
+<hr/>
+<br/>
+<h2>Plain‑language overview (for non‑specialists)</h2>
+<ul>
+<li>**What MBFR is:** a power plant that makes heat by firing many **tiny fusion bursts each second**. There is **no big, continuous plasma** to confine. The heat then runs a standard turbine to make electricity.</li>
+<li>**How one burst works:** a **small frozen fuel pellet** (deuterium + tritium) flies through the chamber. A **millimetre‑wave maser** gives it a gentle, even pre‑heat so the main **ultraviolet lasers** couple better. The lasers fire for a few **nanoseconds**, the pellet fuses, and the energy appears as **helium nuclei (alphas)** and **neutrons**. Nearby structures and a **liquid blanket** absorb this energy as heat.</li>
+<li>**Why bigger plants are cheaper:** the fuel‑pellet cost per MWh barely changes with size, but **big plants spread fixed costs** (drivers, shielding, tritium systems, turbine island, staff) over far more output. That’s why we aim for **400–600 megawatts electric (MWe)**.</li>
+<li>**Safety in plain terms:** thick shielding cuts radiation to **background‑like levels at the site fence**; tritium stays in sealed loops with **detritiation** and **permeation barriers**; double‑wall heat‑exchangers have a monitored **helium sweep** to catch leaks. This is **not “no radiation”**—it is **radiation contained on‑site**.</li>
+<li>**Status:** the numbers here are **reference design points** to guide engineering and costing. The path is: bench tests → single‑chamber demonstrator → multi‑chamber commercial plant.</li>
+</ul>
+<br/>
+<h2>Acronyms & units (quick glossary)</h2>
+<ul>
+<li>**D / T:** deuterium / tritium (forms of hydrogen; **T is radioactive**).</li>
+<li>**α (alpha):** helium‑4 nucleus made by fusion; **n:** neutron.</li>
+<li>**kJ / MJ:** kilo / mega‑joule (1 MJ = 1,000,000 J). **MeV:** million electron‑volts (a particle‑energy unit).</li>
+<li>**Hz / ns / µs / ps:** per‑second / nanosecond / microsecond / picosecond.</li>
+<li>**MW(th) / MWe:** thermal / electric megawatts.</li>
+<li>**Gain (G):** fusion energy out divided by laser optical energy in.</li>
+<li>**η_laser / η_th→e:** laser wall‑plug efficiency / thermal‑to‑electric efficiency.</li>
+<li>**Rep‑rate:** shots per second per chamber.</li>
+<li>**FLiBe:** lithium‑fluoride–beryllium‑fluoride molten salt; **PbLi:** lead–lithium alloy.</li>
+<li>**DPSSL:** diode‑pumped solid‑state laser (frequency‑tripled to UV for direct drive).</li>
+<li>**Maser / gyrotron:** high‑power millimetre‑wave source used here for pre‑heating the pellet surface.</li>
+<li>**sCO₂:** **supercritical carbon dioxide** power cycle (a high‑efficiency turbine system).</li>
+<li>**LCOE:** levelised cost of electricity ($/MWh over the plant life). **O&M:** operations & maintenance. **WACC:** weighted average cost of capital. **CF:** capacity factor (percent of time at full power, on average). **NOAK:** nth‑of‑a‑kind plant (after the first‑of‑a‑kind).</li>
+<li>**ALARA:** “as low as reasonably achievable” (safety principle for radiation exposure).</li>
+<li>**TVL:** tenth‑value layer—thickness that cuts radiation by 10×.</li>
+<li>**MCNP / Serpent:** standard neutron‑transport simulation codes.</li>
+<li>**FPGA / PTP / PLC / RTOS:** field‑programmable gate array / Precision Time Protocol / programmable logic controller / real‑time operating system.</li>
+</ul>
+<br/>
+<hr/>
+<br/>
 <h1 id="toc0"><strong>Fusion Electricity Generation Project Report</strong></h1>
 <h2 id="toc1">PART 1:&nbsp;<strong>Theoretical Foundation &amp; System Concept</strong></h2>
 <p>1.&nbsp;<strong>Principle</strong></p>
