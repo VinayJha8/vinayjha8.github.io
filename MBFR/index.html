@@ -609,6 +609,145 @@
     <h1 id="toc33"><strong>Formal Physics Analysis of Microburst Fusion</strong></h1>
     <p>A more rigorous field-theoretic and kinetic treatment of microburst fusion (plasma physics, transport, radiation hydrodynamics) belongs in separate technical papers, not on this overview page. The MBFR concept is currently documented at the level of energy-budget models, engineering sketches and cost-scaling spreadsheets.</p>
 
+    <p>A more rigorous field-theoretic and kinetic treatment of microburst fusion (plasma physics, transport, radiation hydrodynamics) belongs in separate technical papers, not on this overview page. The MBFR concept is currently documented at the level of energy-budget models, engineering sketches and cost-scaling spreadsheets.</p>
+    <p>Following is merely a brief raw summary.</p>
+
+<p><strong>1.&nbsp;Working definition</strong></p>
+<p>
+  Microburst fusion, in this project, means controlled, localized D–T fusion events with:
+</p>
+<ul>
+  <li>Pellet mass in the milligram range (frozen D–T mixture).</li>
+  <li>Burn fraction <em>f<sub>burn</sub></em> much less than 1 (only a small part of each pellet burns).</li>
+  <li>Burst duration in the range of nanoseconds to microseconds.</li>
+  <li>Repetition rate typically 10&ndash;100&nbsp;Hz.</li>
+</ul>
+<p>
+  There is no attempt to maintain a large, sustained plasma. The goal is to produce a sequence of small, well-contained fusion bursts whose average thermal output is quasi-steady and can be converted to electricity.
+</p>
+
+<p><strong>2.&nbsp;Reaction and energy partition</strong></p>
+<p>
+  The basic fuel cycle is standard D–T fusion:
+</p>
+<p>
+  D + T &rarr; &alpha; (3.5&nbsp;MeV) + n (14.1&nbsp;MeV), so Q<sub>DT</sub> = 17.6&nbsp;MeV per reaction.
+</p>
+<ul>
+  <li>About 20% of the energy (3.5&nbsp;MeV) is carried by charged <span>&alpha;</span>-particles, which can be confined locally and help heat the micro-plasma.</li>
+  <li>About 80% (14.1&nbsp;MeV) is carried by fast neutrons, which are absorbed in the surrounding blanket and structures, producing heat and breeding tritium.</li>
+</ul>
+<p>
+  This section only uses standard, well-known D–T physics; the novelty of MBFR lies in how the reactions are arranged in space, time, and engineering, not in any exotic new cross-sections.
+</p>
+
+<p><strong>3.&nbsp;Pellet mass, burn fraction and energy per burst</strong></p>
+<p>
+  For a D–T mixture, if the pellet mass is <em>m<sub>pellet</sub></em> and the burn fraction is <em>f<sub>burn</sub></em>, the number of reactions is proportional to
+  <em>f<sub>burn</sub> &times; m<sub>pellet</sub></em>. Therefore, the fusion energy released per burst can be written schematically as:
+</p>
+<p>
+  E<sub>fus</sub> &propto f<sub>burn</sub> &times; m<sub>pellet</sub>.
+</p>
+<p>
+  At full burn, the specific energy of D–T is of order 10<sup>14</sup>&nbsp;J/kg. In MBFR we deliberately keep the burn fraction very small so that each burst remains modest (kilojoule scale), but due to repetition we still obtain substantial average power.
+</p>
+<p>
+  Typical design points in this article are:
+</p>
+<ul>
+  <li>Prototype scale: E<sub>fus</sub> &asymp; 1&nbsp;kJ per burst.</li>
+  <li>Golden-size module: E<sub>fus</sub> &asymp; 10&nbsp;kJ per burst.</li>
+</ul>
+
+<p><strong>4.&nbsp;Module power vs. repetition rate</strong></p>
+<p>
+  If each microburst yields E<sub>fus</sub> and the repetition rate is f<sub>rep</sub>, the average fusion power of one module is:
+</p>
+<p>
+  P<sub>fus</sub> = E<sub>fus</sub> &times; f<sub>rep</sub>.
+</p>
+<p>
+  The electrical power produced is then:
+</p>
+<p>
+  P<sub>el</sub> = &eta; &times; P<sub>fus</sub>,
+</p>
+<p>
+  where &eta; is the overall thermal-to-electric efficiency of the blanket, heat transport and generator (typically 30&ndash;40% for conservative steam cycles, higher for advanced options).
+</p>
+<p>
+  Two important examples used in your article are:
+</p>
+<ul>
+  <li><strong>Example A &ndash; small prototype:</strong> E<sub>fus</sub> = 1&nbsp;kJ, f<sub>rep</sub> = 10&nbsp;Hz &rarr; P<sub>fus</sub> = 10&nbsp;kW. With &eta; = 0.3, this gives &asymp; 3&nbsp;kW electric.</li>
+  <li><strong>Example B &ndash; golden-size module:</strong> E<sub>fus</sub> = 10&nbsp;kJ, f<sub>rep</sub> = 20&nbsp;Hz &rarr; P<sub>fus</sub> = 200&nbsp;kW. With &eta; = 0.3, this gives &asymp; 60&nbsp;kW electric.</li>
+</ul>
+<p>
+  Plant-level power (MW to GW) is then obtained by replicating such modules in parallel, not by pushing a single module into unstable or impractical ranges.
+</p>
+
+<p><strong>5.&nbsp;Ignition energy and gain per microburst</strong></p>
+<p>
+  Let E<sub>ign</sub> be the energy that must actually be delivered to the pellet (by lasers or other drivers) to raise part of it to ignition conditions, and let the driver have efficiency &eta;<sub>driver</sub> (electrical power to delivered ignition energy).
+</p>
+<p>
+  Then the electrical energy drawn from the bus per burst is:
+</p>
+<p>
+  E<sub>bus</sub> = E<sub>ign</sub> / &eta;<sub>driver</sub>.
+</p>
+<p>
+  The gain per burst, defined at the driver level, is:
+</p>
+<p>
+  G = E<sub>fus</sub> / E<sub>bus</sub> = &eta;<sub>driver</sub> &times; (E<sub>fus</sub> / E<sub>ign</sub>).
+</p>
+<p>
+  For an economically useful reactor, we require:
+</p>
+<p>
+  G<sub>net</sub> = (&eta; &times; E<sub>fus</sub>) / E<sub>bus</sub> &gg; 1,
+</p>
+<p>
+  i.e. the electrical energy recovered from the blanket and generator per burst must comfortably exceed the electrical ignition energy taken from the bus. In practical terms, this means:
+</p>
+<ul>
+  <li>Keeping the ratio E<sub>fus</sub> / E<sub>ign</sub> as high as feasible by good compression and target design.</li>
+  <li>Keeping &eta;<sub>driver</sub> and &eta; as high as current technology allows.</li>
+  <li>Operating in the “golden” range of pellet size and repetition rate where both engineering and economics are favourable.</li>
+</ul>
+
+<p><strong>6.&nbsp;Non-sustained, non-equilibrium plasma</strong></p>
+<p>
+  Because each microburst is extremely short and localized, the usual Lawson criterion (&tau; n T) for sustained thermal plasmas does not apply in the same way as in tokamaks or stellarators. We do not attempt to keep a macroscopic volume of plasma in equilibrium for seconds; instead:
+</p>
+<ul>
+  <li>We create a small, transient ignition region inside each pellet.</li>
+  <li>Allow a limited burn in that region.</li>
+  <li>Then immediately quench and remove the energy into solid and liquid structures.</li>
+</ul>
+<p>
+  The relevant constraints become:
+</p>
+<ul>
+  <li>Peak temperature and density achieved in the ignition zone.</li>
+  <li>Burst-to-burst mechanical and thermal stability of the chamber.</li>
+  <li>Average neutron flux and material damage over many years of operation.</li>
+</ul>
+
+<p><strong>7.&nbsp;Theoretical conclusion</strong></p>
+<p>
+  Using standard D–T reaction physics and conservative assumptions on efficiencies, a microburst-based reactor is theoretically consistent provided that:
+</p>
+<ul>
+  <li>The pellet mass and repetition rate are chosen in a “golden” range where ignition is achievable with realistic drivers, and chamber stresses remain manageable.</li>
+  <li>The per-burst gain G and plant-level G<sub>net</sub> are well above unity, as evaluated in your accompanying Excel simulators for various plant sizes.</li>
+  <li>Blanket, shielding and tritium-breeding designs are optimized to handle the 14.1&nbsp;MeV neutrons, converting as much of their energy as possible into useful heat and new fuel rather than damaging structures.</li>
+</ul>
+<p>
+  In this sense, the MBFR concept is not a speculative departure from known physics; it is a different <em>engineering regime</em> within standard D–T fusion, aimed directly at economically viable electricity generation rather than large, sustained plasmas.
+</p>
     <footer>
       <p>MBFR is a speculative research concept. Nothing on this page should be interpreted as design advice for constructing a real reactor or handling nuclear materials.</p>
     </footer>
